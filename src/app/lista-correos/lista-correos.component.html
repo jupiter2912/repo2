@@ -19,14 +19,26 @@
 
     <!-- Para hacerlo con un ngFor mucho mas comodo -->
 
-    <tr *ngFor="let correo of correos">
-        <!-- Utilizamos ngIf para ver si esta leido o no -->
-        <td>
+<!--     <tr *ngFor="let correo of correos"> -->
+<!--         Utilizamos ngIf para ver si esta leido o no -->
+<!--         <td>
             <div *ngIf = "correo.leido">Si</div>
             <div *ngIf = "!correo.leido">No</div>
         </td>
         <td>{{correo.emisor}}</td>
         <td>{{correo.titulo}}</td>
+    </tr>  -->
+
+    <!-- Lo hacemos con *ngFor pero con ngModel y radiobutton (solo puede estar marcado 1) -->
+    <tr *ngFor="let correo of correos index as i;">
+        <td>
+            <input type="radio" name="leido-{{i}}" [(ngMOdel)] = "correo.leido" [value]=true> Si
+            <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value] = false> No
+        </td>
+
+        <td>{{correo.emisor}}</td>
+        <td>{{correo.titulo}}</td>
+
     </tr>
 
 </table>
