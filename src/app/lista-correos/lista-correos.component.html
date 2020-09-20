@@ -1,0 +1,32 @@
+<table>
+    <tr>
+        <th>Leido</th>
+        <th>Emisor</th>
+        <th>Titulo</th>        
+    </tr>
+
+
+    <!-- Si lo hacemos con datos metidos por nosotros -->
+<!--     <tr>
+        <td>{{correos[0].emisor}}</td>
+        <td>{{correos[0].titulo}}</td>
+    </tr>
+
+    <tr>
+        <td>{{correos[1].emisor}}</td>
+        <td>{{correos[1].titulo}}</td>
+    </tr> -->
+
+    <!-- Para hacerlo con un ngFor mucho mas comodo -->
+
+    <tr *ngFor="let correo of correos">
+        <!-- Utilizamos ngIf para ver si esta leido o no -->
+        <td>
+            <div *ngIf = "correo.leido">Si</div>
+            <div *ngIf = "!correo.leido">No</div>
+        </td>
+        <td>{{correo.emisor}}</td>
+        <td>{{correo.titulo}}</td>
+    </tr>
+
+</table>
