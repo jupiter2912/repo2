@@ -30,9 +30,9 @@
     </tr>  -->
 
     <!-- Lo hacemos con *ngFor pero con ngModel y radiobutton (solo puede estar marcado 1) -->
-    <tr *ngFor="let correo of correos index as i;">
+    <tr *ngFor="let correo of correos; index as i;">
         <td>
-            <input type="radio" name="leido-{{i}}" [(ngMOdel)] = "correo.leido" [value]=true> Si
+            <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value]=true> Si
             <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value] = false> No
         </td>
 
@@ -42,3 +42,9 @@
     </tr>
 
 </table>
+
+<!-- Mostrar en tiempo real el estado de la tabla -->
+
+<h2>Estado de lectura del correo</h2>
+<h3 *ngIf="correos[0].leido">Si</h3>
+<h3 *ngIf="!correos[0].leido">No</h3>
