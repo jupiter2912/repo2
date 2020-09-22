@@ -23,8 +23,9 @@ export class GmailService {
     const authToken = this.login.tokenUser;
     let headers = new HttpHeaders({ Authorization: `Bearer ${authToken}`});
 
+   
     let params = new HttpParams();
-    params = params.append('format', 'full');
+    params = params.append('maxResults', '10');
 
     return this.http.get(url, { headers:headers, params: params } );
   };

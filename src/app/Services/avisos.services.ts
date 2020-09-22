@@ -13,8 +13,13 @@ export class AvisosService {
     
    }
 
-  showMessage(mensaje : string) {
-    this._snackBar.open(mensaje,'Informacion',{
+   showMenssage(mensaje: string, tipo?: string){
+      let tipoMensaje = 'Información';
+      
+      if(tipo){
+      tipoMensaje = tipo;
+    }
+    this._snackBar.open(mensaje, tipoMensaje, {
       duration: 2000,
     });
   }

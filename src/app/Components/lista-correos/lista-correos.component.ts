@@ -3,6 +3,7 @@ import { GmailService } from 'src/app/Services/gmail.service';
 import { Router } from '@angular/router';
 import { trigger, state, transition, style, animate } from '@angular/animations';
 import { MatTableDataSource } from '@angular/material/table';
+import { AvisosService } from 'src/app/Services/avisos.services';
 
 @Component({
   selector: 'app-lista-correos',
@@ -24,7 +25,7 @@ export class ListaCorreosComponent implements OnInit {
   dataSource = new MatTableDataSource<any>();
   expandedElement: any | null;
   
-  constructor(private gmail : GmailService, private router : Router) {
+  constructor(private gmail : GmailService, private router : Router, private servicioAvisos: AvisosService) {
 
     this.correos = [];
   }
@@ -71,7 +72,7 @@ export class ListaCorreosComponent implements OnInit {
   }
 
   error(error){
-    console.warn("ERROR");
+    this.servicioAvisos.showMessage("Se ha producido un error", 'Error');
   }
 
   verDetalle(correo){
