@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 // imports necesarios para el formulario y sus validaciones
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -13,6 +13,7 @@ export class NuevoCorreoComponent implements OnInit {
   nuevoCorreo: FormGroup;
   submitted = false;
   @Input() correo: any;
+  @Output() accionRealizada : EventEmitter<any> = new EventEmitter();
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -55,6 +56,7 @@ export class NuevoCorreoComponent implements OnInit {
   onReset(){
     this.submitted = false;
     this.nuevoCorreo.reset();
+    this.accionRealizada.emit();
   }
 
 }
