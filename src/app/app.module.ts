@@ -22,6 +22,9 @@ import { HomeComponent } from './Views/home/home.component';
 import { VisualizarCorreoComponent } from './Views/visualizar-correo/visualizar-correo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Material libs
+import { MatButtonModule} from '@angular/material/button';
+
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "395684135333-7cs6mldgfgr2q531bu51el0j4hdosv0s.apps.googleusercontent.com",
@@ -62,6 +65,7 @@ let gapiClientConfig: NgGapiClientConfig = {
       useValue: gapiClientConfig
     }),
     BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
