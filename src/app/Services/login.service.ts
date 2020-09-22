@@ -11,63 +11,63 @@ export class LoginService {
 
     public static readonly SESSION_STORAGE_KEY: string = "usuarioGoogle";
 
-    user: GoogleUser = undefined;
+    profile: any = undefined;
+    tokenUser: string;
+    userId: string;
 
 	  
 	
   constructor(private googleAuthService: GoogleAuthService, private ngZone: NgZone) { 
     if(this.isUserSignedIn()){
-      this.user = this.getSessionUser();
+      this.setUser(this.getSessionUser());
     }
   }
 
-  public getUser(){
-    return this.user;
+  private setUser(user : any){
+      this.profile = user['w3'];
+      this.tokenUser = user['Zi'].access_token;
+      this.userId = this.profile['Eea'];
   }
 
-  public getToken(){
-    return this.user.getAuthResponse().access_token;
-  }
-
-  public getUserId(){
-    return this.user.getBasicProfile().getId();
-  }
-
-  private getSessionUser(): GoogleUser {
-    let user: string = sessionStorage.getItem(LoginService.SESSION_STORAGE_KEY);
-    if (!user) {
-      throw new Error("no token set , authentication required");
+    public getSessionUser(): GoogleUser{
+        let user: string = sessionStorage.getItem(LoginService.SESSION_STORAGE_KEY);
+        if (!user) {
+          throw new Error("no token set , authentication required");
+        }
+        return JSON.parse(user);
     }
-    return JSON.parse(user);
-  }
 
-  public signIn() {
-    this.googleAuthService.getAuth().subscribe((auth) => {
-      auth.signIn().then(
-        res => this.signInSuccessHandler(res),
-        err => this.signInErrorHandler(err));
-    });
-  }
 
-  public signOut(): void {
-    this.googleAuthService.getAuth().subscribe((auth) => {
-      try {
-        auth.signOut();
-        this.user = undefined;
-      } catch (e) {
-        console.error(e);
-      }
-      sessionStorage.removeItem(LoginService.SESSION_STORAGE_KEY);
-    });
-  }
+    public signIn() {
+        this.googleAuthService.getAuth().subscribe((auth) => {
+        auth.signIn().then(
+          res => this.signInSuccessHandler(res),
+          err => this.signInErrorHandler(err));
+      });
+    }
 
+    public signOut(): void {
+        this.googleAuthService.getAuth().subscribe((auth) => {
+          try {
+            auth.signOut();
+            this.profile = undefined;
+            this.tokenUser = undefined;
+            this.userId = undefined;
+          } catch (e) {
+            console.error(e);
+          }
+          sessionStorage.removeItem(LoginService.SESSION_STORAGE_KEY);
+        });
+    }
+
+  
   public isUserSignedIn(): boolean {
     return !_.isEmpty(sessionStorage.getItem(LoginService.SESSION_STORAGE_KEY));
   }
 
   private signInSuccessHandler(res: GoogleUser) {
     this.ngZone.run(() => {
-      this.user = res;
+      this.setUser(res);
       sessionStorage.setItem(
         LoginService.SESSION_STORAGE_KEY, JSON.stringify(res)
       );
