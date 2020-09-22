@@ -9,6 +9,7 @@ import { ListaCorreosComponent } from './Components/lista-correos/lista-correos.
 import { NuevoCorreoComponent } from './Components/nuevo-correo/nuevo-correo.component';
 import { CorreosRecibidosComponent } from './Views/correos-recibidos/correos-recibidos.component';
 import { AvisosComponent } from './Components/avisos/avisos.component';
+import { LoginComponent } from './Components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AvisosComponent } from './Components/avisos/avisos.component';
     ListaCorreosComponent,
     NuevoCorreoComponent,
     CorreosRecibidosComponent,
-    AvisosComponent
+    AvisosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
