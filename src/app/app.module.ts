@@ -62,7 +62,6 @@ let gapiClientConfig: NgGapiClientConfig = {
       useValue: gapiClientConfig
     }),
     BrowserAnimationsModule,
-    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
