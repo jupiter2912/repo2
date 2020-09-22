@@ -8,7 +8,7 @@ import { CorreoComponent } from './Components/correo/correo.component';
 import { ListaCorreosComponent } from './Components/lista-correos/lista-correos.component';
 import { NuevoCorreoComponent } from './Components/nuevo-correo/nuevo-correo.component';
 import { CorreosRecibidosComponent } from './Views/correos-recibidos/correos-recibidos.component';
-import { AvisosComponent } from './Components/avisos/avisos.component';
+//import { AvisosComponent } from './Components/avisos/avisos.component';
 import { LoginComponent } from './Components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -27,6 +27,9 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 let gapiClientConfig: NgGapiClientConfig = {
@@ -50,7 +53,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     ListaCorreosComponent,
     NuevoCorreoComponent,
     CorreosRecibidosComponent,
-    AvisosComponent,
+    //AvisosComponent,
     LoginComponent,
     MenuComponent,
     EnviarComponent,
@@ -71,7 +74,10 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatButtonModule,
     MatCardModule,
     MatToolbarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatInputModule,
+    MatTableModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
