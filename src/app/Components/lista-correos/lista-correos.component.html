@@ -32,30 +32,32 @@
 
     <!-- Lo hacemos con *ngFor pero con ngModel y radiobutton (solo puede estar marcado 1) -->
     <ng-container *ngFor="let correo of correos; index as i;">
-        <td>
-            <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value]=true> Si
-            <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value] = false> No
-        </td>
-
-        <td>{{correo.emisor}}</td>
-        <td>{{correo.titulo}}</td>
-        <td>
-            <button (click)="clickResponder(correo)">Responder</button>
-        </td>
-
-        <tr *ngIf="correo.responder">
-            <app-nuevo-correo [correo]="correo"></app-nuevo-correo>
+        <tr>
+            <td>
+                <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value]=true disabled> Si
+                <input type="radio" name="leido-{{i}}" [(ngModel)] = "correo.leido" [value] = false disabled> No
+            </td>
+    
+            <td>{{correo.emisor}}</td>
+            <td>{{correo.titulo}}</td>
+            <td>
+                <button (click)="clickResponder(correo)">Responder</button>
+            </td>
         </tr>
+            <tr *ngIf="correo.responder">
+                <app-nuevo-correo [correo]="correo"></app-nuevo-correo>
+            </tr>
+        
     </ng-container>
 </table>
 
 <!-- Mostrar en tiempo real el estado de la tabla -->
 
-<h2>Estado de lectura del correo</h2>
+<!-- <h2>Estado de lectura del correo</h2>
 <h3 *ngIf="correos[0].leido">Si</h3>
-<h3 *ngIf="!correos[0].leido">No</h3>
+<h3 *ngIf="!correos[0].leido">No</h3> -->
 
 
   
   <!-- Primero, realizaremos una prueba fuera -->
-  <!-- <app-nuevo-correo *ngIf="responder" [correo]="correoAResponder"></app-nuevo-correo> -->
+  <app-nuevo-correo *ngIf="responder" [correo]="correoAResponder"></app-nuevo-correo>

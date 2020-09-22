@@ -9,6 +9,7 @@ export class ListaCorreosComponent implements OnInit {
 
   correos : any[];
   responder : boolean;
+  correoAResponder : any;
 
   constructor() { 
 
@@ -60,14 +61,17 @@ export class ListaCorreosComponent implements OnInit {
     
     });
 
-
+    this.responder = false;
 
   }
+
   ngOnInit(): void {
   }
 
-  clickResponder(){
-    this.responder = !=this.clickResponder;
+  clickResponder(correo){
+    //this.responder = !this.responder;
+    //this.correoAResponder = correo;
+    correo.responder = !correo.responder;
   }
 
 }
