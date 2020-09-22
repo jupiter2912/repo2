@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 // imports necesarios para el formulario y sus validaciones
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AvisosService } from 'src/app/Services/avisos.services';
 
 @Component({
   selector: 'app-nuevo-correo',
@@ -14,8 +15,9 @@ export class NuevoCorreoComponent implements OnInit {
   submitted = false;
   @Input() correo: any;
   @Output() accionRealizada : EventEmitter<any> = new EventEmitter();
+  
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private servicioAvisos: AvisosService) { }
 
   ngOnInit()  {
     this.nuevoCorreo = this.formBuilder.group({
@@ -25,7 +27,7 @@ export class NuevoCorreoComponent implements OnInit {
     });
 
     if(this.correo!=undefined){
-      console.log("A", this.correo);
+ 
       this.nuevoCorreo.patchValue({
         titulo: 'Re: '+ this.correo.titulo,
         destinatario: this.correo.emisor
@@ -49,14 +51,21 @@ export class NuevoCorreoComponent implements OnInit {
     correo.leido = false;
     correo.emisor = 'correoEmisor1@openwebinar.inv';
 
-    alert("Correo enviado \n Eliminamos el formulario");
     this.onReset();
+    this.servicioAvisos.showMessage('Correo Enviado a ${correo.emisor}');
+    
   }
 
   onReset(){
     this.submitted = false;
     this.nuevoCorreo.reset();
     this.accionRealizada.emit();
+    this.servicioAvisos.showMessage("Envio Cancelado");
+  }
+
+  cancel(){
+    this.onReset();
+    this.servicioAvisos.showMessage("Envio Cancelado");
   }
 
 }
