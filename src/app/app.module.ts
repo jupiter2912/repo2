@@ -20,16 +20,10 @@ import { MenuComponent } from './Menu/menu/menu/menu.component';
 import { EnviarComponent } from './Views/enviar/enviar.component';
 import { HomeComponent } from './Views/home/home.component';
 import { VisualizarCorreoComponent } from './Views/visualizar-correo/visualizar-correo.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//Material libs
-import { MatButtonModule} from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+//Modulos
+import { MaterialModule } from './Modules/material/material.module';
 
 
 let gapiClientConfig: NgGapiClientConfig = {
@@ -70,14 +64,7 @@ let gapiClientConfig: NgGapiClientConfig = {
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MatInputModule,
-    MatTableModule,
-    MatSnackBarModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
