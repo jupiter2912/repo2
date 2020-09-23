@@ -30,24 +30,7 @@ export class GmailService {
     params = params.append('maxResults', '10');
 
     let observableRespuesta = this.http.get(url, {headers:headers, params: params});
-    return observableRespuesta.pipe(map(
-    (response : any) => {
-      let correo = undefined;
-
-      if(response){
-        const emisor = response.payload.headers.find(e => e.name === "From");
-        const subject = response.payload.headers.find(e => e.name === "Subject");
-
-        correo = {
-          id: response['id'],
-          cuerpo: response['snippet'],
-          emisor: emisor? emisor.value : undefined,
-          titulo: subject? subject.value : undefined,
-        };
-      }
-      return correo;
-      }
-    ));
+    return observableRespuesta.pipe(map(this.helperGetMessage));
   };
 
   public sendMessage = function (text: string, to: string, subject: string){
@@ -69,7 +52,26 @@ export class GmailService {
     return this.http.post(url, { 'raw': base64EncodedEmail }, { headers: headers } );
   }
 
+
+  private helperGetMessage = (response : any) =>{
+        let correo = undefined;
   
-}
+        if(response){
+          const emisor = response.payload.headers.find(e => e.name === "From");
+          const subject = response.payload.headers.find(e => e.name === "Subject");
+  
+          correo = {
+            id: response['id'],
+            cuerpo: response['snippet'],
+            emisor: emisor? emisor.value : undefined,
+            titulo: subject? subject.value : undefined,
+          };
+        }
+        return correo;
+    }
+ }
+
+  
+
       
 
