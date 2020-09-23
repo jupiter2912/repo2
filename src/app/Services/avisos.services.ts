@@ -13,7 +13,7 @@ export class AvisosService {
     
    }
 
-   showMenssage(mensaje: string, tipo?: string){
+   showMessage(mensaje: string, tipo?: string){
       let tipoMensaje = 'Información';
       
       if(tipo){
