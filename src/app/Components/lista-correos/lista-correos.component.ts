@@ -55,17 +55,9 @@ export class ListaCorreosComponent implements OnInit {
 
   getMensaje(id: string){
     this.gmail.getMessage(id).subscribe(
-      (response) => {
-        const emisor = response.payload.headers.find(e => e.name === "From");
-        const subject = response.payload.headers.find(e => e.name === "Subject");
+      (correo) => {
+        this.dataSource.data.push(correo);
 
-        const mensage = {
-          id: response.id,
-          cuerpo: response.snippet,
-          emisor: emisor? emisor.value : undefined,
-          titulo: subject? subject.value : undefined,
-        };
-        this.dataSource.data.push(mensage);
         this.dataSource._updateChangeSubscription();
       },
       (error) => this.error(error)

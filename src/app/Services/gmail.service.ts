@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { LoginService } from './login.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { CorreoComponent } from '../Components/correo/correo.component';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,47 @@ export class GmailService {
     let params = new HttpParams();
     params = params.append('maxResults', '10');
 
-    return this.http.get(url, { headers:headers, params: params } );
+    let observableRespuesta = this.http.get(url, {headers:headers, params: params});
+    return observableRespuesta.pipe(map(
+    (response : any) => {
+      let correo = undefined;
+
+      if(response){
+        const emisor = response.payload.headers.find(e => e.name === "From");
+        const subject = response.payload.headers.find(e => e.name === "Subject");
+
+        correo = {
+          id: response['id'],
+          cuerpo: response['snippet'],
+          emisor: emisor? emisor.value : undefined,
+          titulo: subject? subject.value : undefined,
+        };
+      }
+      return correo;
+      }
+    ));
   };
+
+  public sendMessage = function (text: string, to: string, subject: string){
+    const url = "https://www.googleapis.com/gmail/v1/users/"+this.login.userId+"/messages/send";
+    const authToken = this.login.tokenUser;
+
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`
+    });
+
+    const emailTemplate = 
+      "Content-Type:  text/plain; charset=\"UTF-8\"\nContent-length: 5000\nContent-Transfer-Encoding: message/rfc2822\n" +
+      `To: ${to}\n`+
+      `Subject: ${subject}\n\n`+
+      `${text}`;
+    const base64EncodedEmail = btoa(emailTemplate).replace(/\+/g, '-').replace(/\//g, '_');
+
+    return this.http.post(url, { 'raw': base64EncodedEmail }, { headers: headers } );
+  }
+
+  
 }
+      
+
